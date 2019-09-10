@@ -307,9 +307,9 @@ defmodule Earmark.Ast.Inline do
 
     context2 = _convert(text, lnb, set_value(context1, []), false)
     if title do
-      { "a", [{"href", href}, {"title", title}], context2.value }
+      { "a", [{"href", href}, {"title", title}, {"target", "_blank"}], context2.value }
     else
-      { "a", [{"href", href}], context2.value }
+      { "a", [{"href", href}, {"target", "_blank"}], context2.value }
     end
   end
 
