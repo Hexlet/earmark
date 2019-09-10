@@ -202,9 +202,9 @@ defmodule Earmark.HtmlRenderer do
   def strong(text), do: "<strong>#{text}</strong>"
   def strikethrough(text), do: "<del>#{text}</del>"
 
-  def link(url, text), do: ~s[<a href="#{url}">#{text}</a>]
-  def link(url, text, nil), do: ~s[<a href="#{url}">#{text}</a>]
-  def link(url, text, title), do: ~s[<a href="#{url}" title="#{title}">#{text}</a>]
+  def link(url, text), do: ~s[<a href="#{url}" target="_blank">#{text}</a>]
+  def link(url, text, nil), do: ~s[<a href="#{url}" target="_blank">#{text}</a>]
+  def link(url, text, title), do: ~s[<a href="#{url}" title="#{title}" target="_blank">#{text}</a>]
 
   def image(path, alt, nil) do
     ~s[<img src="#{path}" alt="#{alt}" />]
@@ -215,7 +215,7 @@ defmodule Earmark.HtmlRenderer do
   end
 
   def footnote_link(ref, backref, number),
-    do: ~s[<a href="##{ref}" id="#{backref}" class="footnote" title="see footnote">#{number}</a>]
+    do: ~s[<a href="##{ref}" id="#{backref}" class="footnote" title="see footnote" target="_blank">#{number}</a>]
 
   # Table rows
   defp add_trs(context, rows, tag, aligns, lnb) do
@@ -253,7 +253,7 @@ defmodule Earmark.HtmlRenderer do
 
   def append_footnote_link(note = %Block.FnDef{}) do
     fnlink =
-      ~s[<a href="#fnref:#{note.number}" title="return to article" class="reversefootnote">&#x21A9;</a>]
+      ~s[<a href="#fnref:#{note.number}" target="_blank" title="return to article" class="reversefootnote">&#x21A9;</a>]
 
     [last_block | blocks] = Enum.reverse(note.blocks)
     last_block = append_footnote_link(last_block, fnlink)
